@@ -92,10 +92,10 @@ function Model({ onLoadingStateChange }: ModelProps) {
     },
     {
       path: '/uploads_files_3983747_FinancePack/Card.fbx',
-      position: [2, 1, 0] as [number, number, number],
+      position: [2 ,0, 0] as [number, number, number],
       rotation: [Math.PI / 12, Math.PI / 4, 0] as [number, number, number],
       scale: 0.004,
-      color: '#F59E0B'
+      color: '#e4162c'
     },
     {
       path: '/uploads_files_3983747_FinancePack/CoinStackMedium.fbx',
@@ -212,6 +212,19 @@ function Model({ onLoadingStateChange }: ModelProps) {
 export default function ModelViewer() {
   const [loadingState, setLoadingState] = useState<ModelLoadingState>({ status: 'loading' });
   const [isMobile, setIsMobile] = useState(false);
+  const [rotateDirection, setRotateDirection] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsPaused(true);
+      setTimeout(() => {
+        setRotateDirection(prev => prev * -1);
+        setIsPaused(false);
+      }, 1000);
+    }, 7000); // 6 seconds rotation + 1 second pause
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -291,10 +304,10 @@ export default function ModelViewer() {
           <Model onLoadingStateChange={setLoadingState} />
         </Suspense>
         <OrbitControls 
-          enableZoom={true}
+          enableZoom={false}
           enablePan={false}
           autoRotate={true}
-          autoRotateSpeed={-1}
+          autoRotateSpeed={isPaused ? 0 : -1 * rotateDirection}
           minDistance={isMobile ? 8 : 7}
           maxDistance={isMobile ? 18 : 16}
         />
