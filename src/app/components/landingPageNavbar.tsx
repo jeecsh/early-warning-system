@@ -21,7 +21,7 @@ export const LandingPageNavbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: Lan
     // Gradient animation (blue-black)
     gsap.to(gradientRef.current, {
       backgroundPosition: '200% 10%', // Move gradient to the right
-      duration: 5,
+      duration: 8,
       repeat: -1, // Infinite loop
       ease: "linear",
     });
