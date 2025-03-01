@@ -78,10 +78,10 @@ function Model({ onLoadingStateChange }: ModelProps) {
     },
     {
       path: '/uploads_files_3983747_FinancePack/Card.fbx',
-      position: [2, 1, 0] as [number, number, number],
+      position: [2, 0, 0] as [number, number, number],
       rotation: [Math.PI / 12, Math.PI / 4, 0] as [number, number, number],
       scale: 0.004,
-      color: '#F59E0B'
+      color: '#e4162c'
     },
     {
       path: '/uploads_files_3983747_FinancePack/CoinStackMedium.fbx',
