@@ -16,35 +16,21 @@ const HeroSection = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const container = useRef<HTMLDivElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
+  const [modelRotation, setModelRotation] = useState(0);
 
   useGSAP(() => {
     if (!circleRef.current || !container.current) return;
     
-    const tl = gsap.timeline({
-      repeat: -1,
+    gsap.to(circleRef.current, {
+      rotation: (modelRotation * 180) / Math.PI,
+      duration: 0.3,
+      ease: "none",
     });
+  }, [modelRotation]);
 
-    tl.to(circleRef.current, {
-      rotation: "-=180",
-      duration: 7,
-      ease: "none",
-    })
-    .to(circleRef.current, {
-      rotation: "+=0",
-      duration: 1,
-      ease: "none",
-    })
-    .to(circleRef.current, {
-      rotation: "+=180",
-      duration: 7,
-      ease: "none",
-    })
-    .to(circleRef.current, {
-      rotation: "-=0",
-      duration: 1,
-      ease: "none",
-    });
-  }, { scope: container });
+  const handleRotationChange = (rotation: number) => {
+    setModelRotation(rotation);
+  };
 
   return (
     <div ref={container} className="min-h-screen bg-white relative overflow-hidden">
@@ -84,7 +70,7 @@ const HeroSection = () => {
 
           {/* 3D Model Viewer */}
           <div className="relative h-[300px] sm:h-[400px] md:h-[500px] flex items-center justify-center mt-8 lg:mt-0">
-            <ModelViewer />
+            <ModelViewer onRotationChange={handleRotationChange} />
           </div>
         </div>
       </div>

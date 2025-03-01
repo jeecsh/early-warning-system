@@ -1,11 +1,12 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, Html } from "@react-three/drei";
-import { Suspense, useEffect, useState } from "react";
+import { OrbitControls, Environment } from "@react-three/drei";
+import { Suspense, useEffect, useState, useRef } from "react";
 import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import type { Group } from "three";
+import type { OrbitControls as OrbitControlsType } from "@react-three/drei";
 
 interface ModelLoadingState {
   status: 'loading' | 'success' | 'error';
@@ -26,23 +27,8 @@ interface ModelProps {
   onLoadingStateChange: (state: ModelLoadingState) => void;
 }
 
-function generateFloatingCoins(count: number): ModelConfig[] {
-  return Array.from({ length: count }).map((_, i) => ({
-    path: '/uploads_files_3983747_FinancePack/Coin.fbx',
-    position: [
-      Math.cos(i * Math.PI / 3) * 2.5 + (Math.random() - 0.5) * 2,
-      1 + Math.sin(i * Math.PI / 3),
-      Math.sin(i * Math.PI / 3) * 2 + (Math.random() - 0.5) * 2
-    ] as [number, number, number],
-    rotation: [
-      Math.PI / 4,
-      Math.random() * Math.PI * 2,
-      Math.PI / 6
-    ] as [number, number, number],
-    scale: 0.003,
-    color: '#FCD34D',
-    floating: true
-  }));
+interface ModelViewerProps {
+  onRotationChange?: (rotation: number) => void;
 }
 
 function Model({ onLoadingStateChange }: ModelProps) {
@@ -50,7 +36,7 @@ function Model({ onLoadingStateChange }: ModelProps) {
   const modelsToLoad: ModelConfig[] = [
     {
       path: '/uploads_files_3983747_FinancePack/POS.fbx',
-          position: [0, -1.5, 1.7] as [number, number, number],
+      position: [0, -1.5, 1.7] as [number, number, number],
       rotation: [0, 0, 0] as [number, number, number],
       scale: 0.006,
       color: '#14B8A6'
@@ -92,10 +78,10 @@ function Model({ onLoadingStateChange }: ModelProps) {
     },
     {
       path: '/uploads_files_3983747_FinancePack/Card.fbx',
-      position: [2 ,0, 0] as [number, number, number],
+      position: [2, 1, 0] as [number, number, number],
       rotation: [Math.PI / 12, Math.PI / 4, 0] as [number, number, number],
       scale: 0.004,
-      color: '#e4162c'
+      color: '#F59E0B'
     },
     {
       path: '/uploads_files_3983747_FinancePack/CoinStackMedium.fbx',
@@ -209,22 +195,31 @@ function Model({ onLoadingStateChange }: ModelProps) {
   );
 }
 
-export default function ModelViewer() {
+function generateFloatingCoins(count: number): ModelConfig[] {
+  return Array.from({ length: count }).map((_, i) => ({
+    path: '/uploads_files_3983747_FinancePack/Coin.fbx',
+    position: [
+      Math.cos(i * Math.PI / 3) * 2.5 + (Math.random() - 0.5) * 2,
+      1 + Math.sin(i * Math.PI / 3),
+      Math.sin(i * Math.PI / 3) * 2 + (Math.random() - 0.5) * 2
+    ] as [number, number, number],
+    rotation: [
+      Math.PI / 4,
+      Math.random() * Math.PI * 2,
+      Math.PI / 6
+    ] as [number, number, number],
+    scale: 0.003,
+    color: '#FCD34D',
+    floating: true
+  }));
+}
+
+export default function ModelViewer({ onRotationChange }: ModelViewerProps) {
   const [loadingState, setLoadingState] = useState<ModelLoadingState>({ status: 'loading' });
   const [isMobile, setIsMobile] = useState(false);
   const [rotateDirection, setRotateDirection] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsPaused(true);
-      setTimeout(() => {
-        setRotateDirection(prev => prev * -1);
-        setIsPaused(false);
-      }, 1000);
-    }, 7000); // 6 seconds rotation + 1 second pause
-    return () => clearInterval(interval);
-  }, []);
+  const controlsRef = useRef(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -246,6 +241,13 @@ export default function ModelViewer() {
       </div>
     );
   }
+
+  const handleCameraChange = (event: any) => {
+    if (event?.target) {
+      const azimuthalAngle = event.target.getAzimuthalAngle();
+      onRotationChange?.(azimuthalAngle);
+    }
+  };
 
   return (
     <div className="w-full h-[500px] md:h-[600px] relative">
@@ -304,12 +306,14 @@ export default function ModelViewer() {
           <Model onLoadingStateChange={setLoadingState} />
         </Suspense>
         <OrbitControls 
+          ref={controlsRef}
           enableZoom={false}
           enablePan={false}
           autoRotate={true}
           autoRotateSpeed={isPaused ? 0 : -1 * rotateDirection}
           minDistance={isMobile ? 8 : 7}
           maxDistance={isMobile ? 18 : 16}
+          onChange={handleCameraChange}
         />
       </Canvas>
     </div>
