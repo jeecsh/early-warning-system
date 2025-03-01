@@ -50,7 +50,7 @@ function Model({ onLoadingStateChange }: ModelProps) {
   const modelsToLoad: ModelConfig[] = [
     {
       path: '/uploads_files_3983747_FinancePack/POS.fbx',
-          position: [0, -1, 1.7] as [number, number, number],
+          position: [0, -1.5, 1.7] as [number, number, number],
       rotation: [0, 0, 0] as [number, number, number],
       scale: 0.006,
       color: '#14B8A6'
@@ -293,8 +293,8 @@ export default function ModelViewer() {
         <OrbitControls 
           enableZoom={true}
           enablePan={false}
-          autoRotate 
-          autoRotateSpeed={0.15}
+          autoRotate={true}
+          autoRotateSpeed={-1}
           minDistance={isMobile ? 8 : 7}
           maxDistance={isMobile ? 18 : 16}
         />
