@@ -2,11 +2,10 @@
 
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
-import { Suspense, useEffect, useState, useRef } from "react";
+import { Suspense, useEffect, useState, useRef, useMemo } from "react";
 import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import type { Group } from "three";
-import type { OrbitControls as OrbitControlsType } from "@react-three/drei";
 
 interface ModelLoadingState {
   status: 'loading' | 'success' | 'error';
@@ -33,7 +32,7 @@ interface ModelViewerProps {
 
 function Model({ onLoadingStateChange }: ModelProps) {
   const [models, setModels] = useState<Group[]>([]);
-  const modelsToLoad: ModelConfig[] = [
+  const modelsToLoad = useMemo<ModelConfig[]>(() => ([
     {
       path: '/uploads_files_3983747_FinancePack/POS.fbx',
       position: [0, -1.5, 1.7] as [number, number, number],
@@ -91,7 +90,7 @@ function Model({ onLoadingStateChange }: ModelProps) {
       color: '#FCD34D'
     },
     ...generateFloatingCoins(6)
-  ];
+  ]), []);
 
   useEffect(() => {
     let loadedCount = 0;
@@ -182,7 +181,7 @@ function Model({ onLoadingStateChange }: ModelProps) {
       animations.forEach(id => cancelAnimationFrame(id));
       setModels([]);
     };
-  }, [onLoadingStateChange]);
+  }, [modelsToLoad, onLoadingStateChange]);
 
   return (
     <group>
@@ -217,8 +216,11 @@ function generateFloatingCoins(count: number): ModelConfig[] {
 export default function ModelViewer({ onRotationChange }: ModelViewerProps) {
   const [loadingState, setLoadingState] = useState<ModelLoadingState>({ status: 'loading' });
   const [isMobile, setIsMobile] = useState(false);
+  // State for controlling model rotation - used by OrbitControls
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const [rotateDirection, setRotateDirection] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
+  /* eslint-enable @typescript-eslint/no-unused-vars */
   const controlsRef = useRef(null);
 
   useEffect(() => {
@@ -242,6 +244,9 @@ export default function ModelViewer({ onRotationChange }: ModelViewerProps) {
     );
   }
 
+  // Explicitly disable the any warning for the event parameter since
+  // the OrbitControls event type is complex and internal to three.js
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const handleCameraChange = (event: any) => {
     if (event?.target) {
       const azimuthalAngle = event.target.getAzimuthalAngle();

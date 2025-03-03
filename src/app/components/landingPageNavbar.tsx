@@ -1,6 +1,6 @@
-"use client";
+  "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 interface LandingPageNavbarProps {
@@ -27,7 +27,7 @@ export const LandingPageNavbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: Lan
     });
 
     // Infinite motion for the balls
-    const ball1Animation = gsap.to(ball1Ref.current, {
+    gsap.to(ball1Ref.current, {
       x: 20, // Move horizontally
       y: -20, // Move vertically
       duration: 2,
@@ -36,7 +36,7 @@ export const LandingPageNavbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: Lan
       ease: "power2.inOut",
     });
 
-    const ball2Animation = gsap.to(ball2Ref.current, {
+    gsap.to(ball2Ref.current, {
       x: -20, // Move horizontally
       y: 20, // Move vertically
       duration: 2,
