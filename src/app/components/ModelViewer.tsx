@@ -222,6 +222,48 @@ export default function ModelViewer({ onRotationChange }: ModelViewerProps) {
   const [isPaused, setIsPaused] = useState(false);
   /* eslint-enable @typescript-eslint/no-unused-vars */
   const controlsRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isScrolling = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isScrolling = false;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!e.touches[0] || isScrolling) return;
+
+      const deltaX = e.touches[0].clientX - touchStartX;
+      const deltaY = e.touches[0].clientY - touchStartY;
+
+      // If vertical movement is greater, mark as scrolling and let the event pass through
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        isScrolling = true;
+        return;
+      }
+
+      // If horizontal movement is greater, prevent default to allow model rotation
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        e.preventDefault();
+      }
+    };
+
+    const container = containerRef.current;
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -255,7 +297,7 @@ export default function ModelViewer({ onRotationChange }: ModelViewerProps) {
   };
 
   return (
-    <div className="w-full h-[500px] md:h-[600px] relative">
+    <div ref={containerRef} className="w-full h-[500px] md:h-[600px] relative">
 {loadingState.status === 'loading' && (
   <div className="absolute inset-0 flex items-center justify-center z-10">
     <div className="flex flex-col items-center space-y-4 p-6 bg-transparent rounded-lg shadow-lg">

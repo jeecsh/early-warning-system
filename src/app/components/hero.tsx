@@ -69,7 +69,7 @@
 
           {/* 3D Model Viewer */}
           <div className="relative h-[300px] sm:h-[400px] md:h-[500px] mt-8 lg:mt-0">
-              <div className="absolute inset-0 touch-pan-x">
+              <div className="absolute inset-0">
                 <ModelViewer onRotationChange={handleRotationChange} />
               </div>
             </div>
