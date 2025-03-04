@@ -38,8 +38,8 @@ export default function FinancialWarning() {
 
       gsap.to(lightRef.current, {
         x: '100vw',
-        y: '50vh',
-        scale: 3,
+        y: '75vh',
+        scale: 5,
         duration: 6,
         repeat: -1,
         yoyo: true,
@@ -101,35 +101,36 @@ export default function FinancialWarning() {
         defaults: { ease: "power1.inOut" }
       });
 
-      // Initial synchronized bouncing animation
-      tl.fromTo(ballsRef.current,
-        { y: 0 },
-        { 
-          y: -20,
-          duration: 0.5,
+      // Wave-like animation
+      tl.to(ballsRef.current, {
+        y: -20,
+        duration: 0.4,
+        stagger: {
+          each: 0.1,
           repeat: -1,
           yoyo: true,
-          stagger: 0
+          from: "start",
+          ease: "sine.inOut"
         }
-      );
+      });
 
-      // Scroll-triggered falling animation with disappearing effect
+      // Scroll-triggered falling animation that maintains wave motion
       ballsRef.current.forEach((ball, index) => {
+        // Random x offset between -100 and 100
+        const xOffset = Math.random() * 200 - 100;
+        const rotation = Math.random() * 360;
+
         gsap.to(ball, {
-          y: '100vh',
-          duration: 1.5,
-          delay: index * 0.1,
-          ease: "power2.in",
+          y: '+=100vh', // Add to current position to maintain wave
+          x: xOffset,
+          rotation: rotation,
+          duration: 2.5, // Slightly longer duration for smoother combined motion
+          delay: index * 0.15,
+          ease: "power1.inOut",
           scrollTrigger: {
             trigger: dataStreamRef.current,
             start: "top center",
             toggleActions: "play none none none"
-          },
-          onStart: () => {
-            if (index === 0) {
-              // Stop bouncing animation when first ball starts falling
-              tl.kill();
-            }
           },
           onComplete: () => {
             if (ball) {
@@ -143,7 +144,7 @@ export default function FinancialWarning() {
 
   return (
     <div className="relative flex flex-col items-center justify-center text-center py-40 px-5 bg-white min-h-screen overflow-hidden">
-      <div ref={lightRef} className="absolute top-0 left-0 w-40 h-40 bg-blue-300 opacity-40 blur-3xl rounded-full" />
+      <div ref={lightRef} className="absolute top-1/4 left-0 w-40 h-40 bg-blue-300 opacity-40 blur-3xl rounded-full" />
       <div className="relative inline-block">
         <h1 ref={textRef} className="text-2xl sm:text-3xl md:text-6xl font-bold text-blue-600 relative leading-tight max-w-[300px] sm:max-w-none mx-auto tracking-tight md:tracking-normal px-2 md:px-4">
           <span className="hidden sm:inline">Your Financial Early Warning System</span>
@@ -169,7 +170,7 @@ export default function FinancialWarning() {
         ))}
       </div>
       
-      <div ref={nextSectionRef} className="mt-16 opacity-0">
+      <div ref={nextSectionRef} className="mt-20 opacity-0">
   <h2 
     ref={(el) => {
       if (el) {
