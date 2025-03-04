@@ -170,7 +170,7 @@ export default function FinancialWarning() {
         </h1>
 
         <p ref={subTextRef} className="mt-6 text-lg md:text-2xl text-blue-500"> 
-          Detect risks early, take action faster, and secure your business's future.
+          Detect risks early, take action faster, and secure your business&apos;s future.
         </p>
       </div>
 
