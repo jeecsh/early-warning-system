@@ -59,26 +59,27 @@ export const LandingPageNavbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: Lan
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo Area */}
-          <div className="flex items-center space-x-2 relative">
-            {/* Moving Balls */}
-            <div
-              ref={ball1Ref}
-              className="absolute w-2 h-2 bg-blue-500 rounded-full opacity-50"
-              style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-            />
-            <div
-              ref={ball2Ref}
-              className="absolute w-2 h-2 bg-blue-500 rounded-full opacity-50"
-              style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-            />
-
+          <div className="flex items-center space-x-2">
             {/* Logo with Gradient Animation */}
-            <div
-              ref={gradientRef}
-              className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-500 via-white to-blue-600 bg-[length:200%_100%] bg-clip-text text-transparent"
-              style={{ backgroundPosition: '0% 50%' }}
-            >
-              EWS
+            <div className="relative">
+              {/* Moving Balls */}
+              <div
+                ref={ball1Ref}
+                className="absolute w-2 h-2 bg-blue-500 rounded-full opacity-50 -z-10"
+                style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+              />
+              <div
+                ref={ball2Ref}
+                className="absolute w-2 h-2 bg-blue-500 rounded-full opacity-50 -z-10"
+                style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+              />
+              <div
+                ref={gradientRef}
+                className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-500 via-white to-blue-600 bg-[length:200%_100%] bg-clip-text text-transparent relative"
+                style={{ backgroundPosition: '0% 50%' }}
+              >
+                EWS
+              </div>
             </div>
           </div>
           

@@ -318,6 +318,8 @@ export default function ModelViewer({ onRotationChange }: ModelViewerProps) {
           autoRotateSpeed={isPaused ? 0 : -1 * rotateDirection}
           minDistance={isMobile ? 8 : 7}
           maxDistance={isMobile ? 18 : 16}
+          minPolarAngle={Math.PI / 2}
+          maxPolarAngle={Math.PI / 2}
           onChange={handleCameraChange}
         />
       </Canvas>

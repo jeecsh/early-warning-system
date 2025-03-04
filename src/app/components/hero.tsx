@@ -52,9 +52,8 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-6 sm:space-y-8 z-10 relative text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-              Transform Financial
-              <br className="hidden sm:block" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight flex flex-col">
+              <span>Transform Financial</span>
               <span className="text-blue-600">Risk Management</span>
             </h1>
             

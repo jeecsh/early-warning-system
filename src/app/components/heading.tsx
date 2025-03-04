@@ -145,8 +145,9 @@ export default function FinancialWarning() {
     <div className="relative flex flex-col items-center justify-center text-center py-40 px-5 bg-white min-h-screen overflow-hidden">
       <div ref={lightRef} className="absolute top-0 left-0 w-40 h-40 bg-blue-300 opacity-40 blur-3xl rounded-full" />
       <div className="relative inline-block">
-        <h1 ref={textRef} className="text-3xl md:text-6xl font-bold text-blue-600 relative">
-          Your Financial Early Warning System
+        <h1 ref={textRef} className="text-2xl sm:text-3xl md:text-6xl font-bold text-blue-600 relative leading-tight max-w-[300px] sm:max-w-none mx-auto tracking-tight md:tracking-normal px-2 md:px-4">
+          <span className="hidden sm:inline">Your Financial Early Warning System</span>
+       
         </h1>
       </div>
       <p ref={subTextRef} className="mt-6 text-lg md:text-2xl text-blue-500 opacity-0"> 
@@ -169,13 +170,39 @@ export default function FinancialWarning() {
       </div>
       
       <div ref={nextSectionRef} className="mt-16 opacity-0">
-        <h2 className="text-3xl md:text-6xl font-bold text-blue-600">
-          Unlock Growth with Strategic Insights
-        </h2>
-        <p className="mt-6 text-lg md:text-2xl text-blue-500">
-          Leverage data-driven decisions to stay ahead in an ever-changing market.
-        </p>
-      </div>
+  <h2 
+    ref={(el) => {
+      if (el) {
+        const chars = el.textContent?.split('') || [];
+        el.innerHTML = chars.map((char) => `<span class='inline-block opacity-0 px-[0.1rem]'>${char}</span>`).join('');
+        const spans = el.querySelectorAll('span');
+
+        gsap.fromTo(
+          spans,
+          { opacity: 0, x: -10 },
+          {
+            opacity: 1,
+            x: 0,
+            stagger: 0.05,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 80%',
+              toggleActions: 'play reverse play reverse',
+            },
+          }
+        );
+      }
+    }}
+    className="text-2xl sm:text-3xl md:text-6xl font-bold text-blue-600 leading-tight max-w-[300px] sm:max-w-none mx-auto tracking-tight md:tracking-normal px-2 md:px-4"
+  >
+    Unlock  Growth  with  Strategic  Insights
+  </h2>
+  <p className="mt-6 text-lg md:text-2xl text-blue-500">
+    Leverage data-driven decisions to stay ahead in an ever-changing market.
+  </p>
+</div>
+
     </div>
   );
 }
