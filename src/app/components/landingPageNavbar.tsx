@@ -18,13 +18,16 @@ export const LandingPageNavbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: Lan
   useEffect(() => {
     if (!gradientRef.current || !ball1Ref.current || !ball2Ref.current) return; // Ensure refs are set
 
-    // Gradient animation (blue-black)
-    gsap.to(gradientRef.current, {
-      backgroundPosition: '200% 10%', // Move gradient to the right
-      duration: 8,
-      repeat: -1, // Infinite loop
-      ease: "linear",
-    });
+    // Gradient animation
+    gsap.fromTo(gradientRef.current,
+      { backgroundPosition: '0% 50%' },
+      {
+        backgroundPosition: '200% 50%',
+        duration: 8,
+        repeat: -1,
+        ease: "none"
+      }
+    );
 
     // Infinite motion for the balls
     gsap.to(ball1Ref.current, {
@@ -75,14 +78,22 @@ export const LandingPageNavbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: Lan
               />
               <div
                 ref={gradientRef}
-                className="text-xl sm:text-2xl font-bold relative"
+                className="text-xl sm:text-2xl font-bold relative z-0 isolate"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-500 via-white to-blue-600 opacity-75 bg-[length:200%_100%] bg-clip-text text-transparent pointer-events-none md:opacity-100"
-                  style={{ backgroundPosition: '0% 50%' }}
+                <span className="absolute inset-0 bg-gradient-to-r from-blue-500 via-white to-blue-600 bg-[length:200%_100%] bg-clip-text text-transparent pointer-events-none"
+                  style={{ 
+                    backgroundPosition: '0% 50%',
+                    backgroundSize: '200% 100%',
+                    backgroundRepeat: 'no-repeat',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    display: 'block',
+                    width: '100%'
+                  }}
                 >
                   EWS
                 </span>
-                <span className="text-blue-600 md:opacity-0">
+                <span aria-hidden="true" className="select-none invisible">
                   EWS
                 </span>
               </div>

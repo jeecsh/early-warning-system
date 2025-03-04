@@ -162,7 +162,7 @@ export default function FinancialWarning() {
       <div className="relative inline-block mb-32">
         <h1 
           ref={textRef} 
-          className="text-2xl sm:text-3xl md:text-6xl font-bold text-blue-600 leading-tight 
+          className="text-4xl sm:text-4xl md:text-6xl font-bold text-blue-600 leading-tight 
                     max-w-[90%] sm:max-w-[600px] mx-auto tracking-tight px-2 md:px-4 
                     break-words whitespace-normal w-full"
         >
@@ -191,7 +191,7 @@ export default function FinancialWarning() {
       <div ref={nextSectionRef} className="mt-20">
         <h2 
           ref={nextTextRef}
-          className="text-2xl sm:text-3xl md:text-6xl font-bold text-blue-600 leading-tight 
+          className="text-4xl sm:text-4xl md:text-6xl font-bold text-blue-600 leading-tight 
                     max-w-[90%] sm:max-w-[600px] mx-auto tracking-tight px-2 md:px-4 
                     break-words whitespace-normal"
         >
