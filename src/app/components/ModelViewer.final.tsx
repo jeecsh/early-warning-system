@@ -236,7 +236,7 @@ export default function ModelViewer({ onRotationChange }: ModelViewerProps) {
   };
 
   return (
-    <div className="w-full h-[500px] md:h-[600px] relative">
+    <div className="w-full h-[500px] md:h-[600px] relative touch-none">
       {loadingState.status === 'loading' && (
         <div className="absolute inset-0 flex items-center justify-center z-10 bg-white bg-opacity-75">
           <div className="flex flex-col items-center space-y-4 p-6 bg-white rounded-lg shadow-lg">

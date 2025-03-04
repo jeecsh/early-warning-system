@@ -75,10 +75,16 @@ export const LandingPageNavbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: Lan
               />
               <div
                 ref={gradientRef}
-                className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-500 via-white to-blue-600 bg-[length:200%_100%] bg-clip-text text-transparent relative"
-                style={{ backgroundPosition: '0% 50%' }}
+                className="text-xl sm:text-2xl font-bold relative"
               >
-                EWS
+                <span className="absolute inset-0 bg-gradient-to-r from-blue-500 via-white to-blue-600 opacity-75 bg-[length:200%_100%] bg-clip-text text-transparent pointer-events-none md:opacity-100"
+                  style={{ backgroundPosition: '0% 50%' }}
+                >
+                  EWS
+                </span>
+                <span className="text-blue-600 md:opacity-0">
+                  EWS
+                </span>
               </div>
             </div>
           </div>
