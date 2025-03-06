@@ -2,11 +2,15 @@ This project is a landing page with animations and a 3D model that was initially
 
 While the full project was not completed, I have decided to make it available for anyone who might find it useful or would like to build upon it.
 
-Project Features
-Landing Page: Responsive design with smooth animations.
-3D Model: Interactive 3D model integrated into the page for enhanced user experience.
-Live Demo
-You can view the live demo here: www.ewsfinance.me (Please note that this is an incomplete version and might not reflect the final intended features)
+## Features
 
-How to Contribute
+- **Landing Page**: Responsive design with smooth animations.
+- **3D Model**: Interactive 3D model integrated into the page for enhanced user experience.
+
+## Live Demo
+
+You can view the live demo here: [ewsfinance.me](https://ewsfinance.me)  
+*(Please note that this is an incomplete version and might not reflect the final intended features)*
+
+## How to Contribute
 Feel free to fork the repository, contribute, or use it as a base for your own projects. Pull requests are welcome
