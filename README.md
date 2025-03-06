@@ -6,7 +6,7 @@ Project Features
 Landing Page: Responsive design with smooth animations.
 3D Model: Interactive 3D model integrated into the page for enhanced user experience.
 Live Demo
-You can view the live demo here: ewsfinance.me (Please note that this is an incomplete version and might not reflect the final intended features)
+You can view the live demo here: www.ewsfinance.me (Please note that this is an incomplete version and might not reflect the final intended features)
 
 How to Contribute
 Feel free to fork the repository, contribute, or use it as a base for your own projects. Pull requests are welcome
