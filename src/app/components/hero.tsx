@@ -53,8 +53,8 @@
             {/* Left Content */}
             <div className="space-y-6 sm:space-y-8 z-10 relative text-center lg:text-left">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight flex flex-col">
-                <span>Transform Financial</span>
-                <span className="text-blue-600">Risk Management</span>
+                <span className="animate-fade-in">Transform Financial</span>
+                <span className="text-blue-600 animate-fade-in-delay">Risk Management</span>
               </h1>
               
               <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0">
